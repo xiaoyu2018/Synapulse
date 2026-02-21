@@ -1,7 +1,7 @@
 [project]
 name = "news-summarizer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Collecting various industry news from designated information sources by AI, “news-summarizer” summarizes key points and sends them to you"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
