@@ -1,0 +1,52 @@
+# Global configuration
+global:
+  timezone: "Asia/Shanghai"
+  log_level: "INFO"
+
+# Domain definitions
+domains:
+  - name: "tech"
+    enabled: true
+    schedule: "0 0 * * *"
+    category: "tech"
+    collectors:
+      - name: "primary_email"
+        type: email
+        enabled: true
+        imap_server: "imap.gmail.com"
+        email_account: "sub1@gmail.com"
+        email_password: "${EMAIL_PASSWORD_PRIMARY}"
+        mailbox: "INBOX"
+        mark_as_seen: true
+        time_range_days: 1
+        category: "tech"
+      - name: "secondary_email"
+        type: email
+        enabled: false
+        imap_server: "imap.gmail.com"
+        email_account: "sub2@gmail.com"
+        email_password: "${EMAIL_PASSWORD_SECONDARY}"
+        mailbox: "INBOX"
+        mark_as_seen: true
+        time_range_days: 1
+        category: "tech"
+    processor:
+      type: ai
+      enabled: true
+      name: "ai_processor"
+      provider: "deepseek"
+      api_base: "https://api.deepseek.com/v1"
+      api_key: "${DEEPSEEK_API_KEY}"
+      model: "deepseek-chat"
+      prompt_file: "prompts/tech.example.md"
+    sender:
+      type: email
+      enabled: true
+      name: "email_sender"
+      smtp_server: "smtp.gmail.com"
+      smtp_port: 465
+      sender_email: "sender@gmail.com"
+      sender_password: "${SENDER_PASSWORD}"
+      receiver_email: "daily@example.com"
+      subject_prefix: "科技日报"
+      use_tls: false
