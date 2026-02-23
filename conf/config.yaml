@@ -9,7 +9,7 @@ domains:
     collectors:
       - name: "EMAIL1"
         type: email
-        imap_server: "imap.gmail.com"
+        imap_server: "imap.163.com"
         email_account: "${EMAIL1_ACCOUNT}"
         email_password: "${EMAIL1_PASSWORD}"
         mailbox: "INBOX"
@@ -18,7 +18,7 @@ domains:
     processor:
       type: ai
       name: "LLM1"
-      provider: "deepseek"
+      provider: "ZHIPUAI"
       api_base: "https://open.bigmodel.cn/api/paas/v4/"
       api_key: "${LLM1_API_KEY}"
       model: "glm-4.7-flash"
@@ -30,6 +30,6 @@ domains:
       smtp_port: 465
       sender_email: "${EMAIL1_ACCOUNT}"
       sender_password: "${EMAIL1_PASSWORD}"
-      receiver_email: "${EMAIL1_ACCOUNT}"
+      receiver_email: "${RECIEVE_ACCOUNT}"
       subject_prefix: "科技日报"
       use_tls: false
