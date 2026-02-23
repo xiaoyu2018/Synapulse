@@ -58,12 +58,6 @@ uv sync
 
 ### 3. 配置
 
-复制配置示例并修改：
-
-```bash
-cp conf/config.example.yaml conf/config.yaml
-```
-
 编辑 `conf/config.yaml`，配置以下内容：
 
 - **收集器**：IMAP 邮件配置（邮箱账号、密码、环境变量占位符）
@@ -75,14 +69,17 @@ cp conf/config.example.yaml conf/config.yaml
 根据配置文件中的占位符设置对应的环境变量：
 
 ```bash
-# 邮箱密码
-export PASSWORD_EMAIL1="your-email-password"
+# 邮箱账号和密码
+export EMAIL1_ACCOUNT="your-email@gmail.com"
+export EMAIL1_PASSWORD="your-email-password"
 
 # AI API Key
 export LLM1_API_KEY="your-deepseek-api-key"
 
-# 发件箱密码
+# 发件箱和收件人
+export EMAIL3_ACCOUNT="sender@gmail.com"
 export EMAIL3_PASSWORD="your-sender-password"
+export RECEIVER_EMAIL="receiver@example.com"
 ```
 
 ### 5. 运行
@@ -162,9 +159,12 @@ domains:
 
 在 GitHub 仓库设置中添加以下 Secrets：
 
-- `PASSWORD_EMAIL1`
+- `EMAIL1_ACCOUNT`
+- `EMAIL1_PASSWORD`
 - `LLM1_API_KEY`
+- `EMAIL3_ACCOUNT`
 - `EMAIL3_PASSWORD`
+- `RECEIVER_EMAIL`
 
 ## 扩展开发
 

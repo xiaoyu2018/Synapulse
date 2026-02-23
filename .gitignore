@@ -214,6 +214,7 @@ __marimo__/
 
 # Config files (keep example but ignore actual)
 conf/
+!conf/config.yaml
 !conf/config.example.yaml
 
 # Prompts (keep example but ignore actual)

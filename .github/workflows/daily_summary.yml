@@ -19,8 +19,7 @@ jobs:
 
       - name: Run summarizer
         env:
-          EMAIL_PASSWORD_PRIMARY: ${{ secrets.EMAIL_PASSWORD_PRIMARY }}
-          EMAIL_PASSWORD_SECONDARY: ${{ secrets.EMAIL_PASSWORD_SECONDARY }}
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
+          EMAIL1_ACCOUNT: ${{ secrets.EMAIL1_ACCOUNT }}
+          EMAIL1_PASSWORD: ${{ secrets.EMAIL1_PASSWORD }}
+          LLM1_API_KEY: ${{ secrets.LLM1_API_KEY }}
         run: uv run python src/main.py
