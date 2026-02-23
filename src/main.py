@@ -4,6 +4,8 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from src.collectors.email_collector import EmailCollector
 from src.config_loader import ConfigLoader
 from src.models import SourceItem
