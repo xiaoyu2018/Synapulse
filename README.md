@@ -195,12 +195,12 @@ domains:
 - [PyYAML](https://github.com/yaml/pyyaml) - YAML 解析
 
 ## TODO
-- [x] 优化collector结构化处理功能（提取url）
-- [x] 改进tech.md提示词，优化生成内容（分类总结、优化信息展示模式）
+- [] 优化collector结构化处理功能（提取url）
+- [] 改进tech.md提示词，优化生成内容（分类总结、优化信息展示模式）
 
 ## ROADMAP
 ### 2026-02-25
-- [o] 优化日志记录模式
+- [x] 优化日志记录模式
 
 ## License
 
