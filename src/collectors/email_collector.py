@@ -70,10 +70,10 @@ class EmailCollector(Collector):
                         if not self.mark_as_seen:
                             mail.store(msg_id, "+FLAGS", "\\Seen")
                 except (imaplib.IMAP4.error, email.message.MessageError) as e:
-                    self.logger.error(f"Error processing email {msg_id}: {e}")
+                    self.logger.exception(f"Error processing email {msg_id}: {e}")
 
         except imaplib.IMAP4.error as e:
-            self.logger.error(f"Failed to collect emails: {e}")
+            self.logger.exception(f"Failed to collect emails: {e}")
 
         finally:
             if mail:
@@ -97,7 +97,7 @@ class EmailCollector(Collector):
         try:
             mail.login(self.email_account, self.email_password)
         except imaplib.IMAP4.error as e:
-            self.logger.error(f"IMAP login failed: {e}")
+            self.logger.exception(f"IMAP login failed: {e}")
             raise
 
         imaplib.Commands["ID"] = ("AUTH",)
@@ -115,7 +115,7 @@ class EmailCollector(Collector):
         try:
             mail._simple_command("ID", cmd)
         except imaplib.IMAP4.error as e:
-            self.logger.error(f"IMAP ID command failed: {e}")
+            self.logger.exception(f"IMAP ID command failed: {e}")
             raise
 
         return mail

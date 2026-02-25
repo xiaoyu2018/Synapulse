@@ -69,7 +69,7 @@ class EmailSender(Sender):
             return True
 
         except smtplib.SMTPException as e:
-            self.logger.error(f"Failed to send email: {e}")
+            self.logger.exception(f"Failed to send email: {e}")
             return False
 
     @staticmethod

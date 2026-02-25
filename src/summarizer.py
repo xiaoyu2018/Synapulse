@@ -32,7 +32,7 @@ class NewsSummarizer:
         try:
             self.config = self._load_config()
         except FileNotFoundError as e:
-            self.logger.error(f"Configuration file not found: {e}")
+            self.logger.exception(f"Configuration file not found: {e}")
             return
 
         domains = self.config.get("domains", [])
@@ -83,7 +83,7 @@ class NewsSummarizer:
             TypeError,
             AttributeError,
         ) as e:
-            self.logger.error(f"Error processing domain {domain_name}: {e}")
+            self.logger.exception(f"Error processing domain {domain_name}: {e}")
 
     def _collect_items(self, domain: dict) -> list[SourceItem]:
         """Collect items from all enabled collectors in domain.
@@ -114,7 +114,7 @@ class NewsSummarizer:
                     f"Collector {collector.name} collected {len(items)} items"
                 )
             except imaplib.IMAP4.error as e:
-                self.logger.error(f"Collector {collector.name} failed: {e}")
+                self.logger.exception(f"Collector {collector.name} failed: {e}")
 
         return all_items
 
@@ -158,7 +158,7 @@ class NewsSummarizer:
         try:
             return processor.process(items)
         except (APIError, APIConnectionError, RateLimitError) as e:
-            self.logger.error(f"Processing failed: {e}")
+            self.logger.exception(f"Processing failed: {e}")
             return None
 
     def _create_processor(self, config: dict) -> AIProcessor | None:
@@ -208,7 +208,7 @@ class NewsSummarizer:
                 self.logger.info(f"Report sent successfully: {subject}")
             return success
         except smtplib.SMTPException as e:
-            self.logger.error(f"Failed to send report: {e}")
+            self.logger.exception(f"Failed to send report: {e}")
             return False
 
     def _create_sender(self, config: dict) -> EmailSender | None:
@@ -228,3 +228,7 @@ class NewsSummarizer:
 
         self.logger.warning(f"Unknown sender type: {sender_type}")
         return None
+
+
+if __name__ == "__main__":
+    print(None or "生成摘要失败。")

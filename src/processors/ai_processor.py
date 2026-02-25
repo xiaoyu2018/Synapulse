@@ -75,7 +75,7 @@ class AIProcessor(Processor):
             return summary or "生成摘要失败。"
 
         except (APIError, APIConnectionError, RateLimitError) as e:
-            self.logger.error(f"AI processing failed: {e}")
+            self.logger.exception(f"AI processing failed: {e}")
             return f"AI处理失败: {str(e)}"
 
     def _load_prompt(self) -> str:
