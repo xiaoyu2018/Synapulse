@@ -48,7 +48,7 @@ class EmailCollector(Collector):
 
             # 使用 select + search 获取未读邮件
             status, msg_count = mail.select(self.mailbox)
-            print(f"[DEBUG] Select result: status={status}, count={msg_count}")
+
             if status != "OK":
                 self.logger.error(f"Failed to select mailbox: {status}")
                 return items
@@ -92,34 +92,31 @@ class EmailCollector(Collector):
         Returns:
             IMAP connection
         """
-        print(
-            f"[DEBUG] Connecting to {self.imap_server}:{self.imap_port} with account {self.email_account}"
-        )
-
         mail = imaplib.IMAP4_SSL(self.imap_server, self.imap_port)
-        print(f"[DEBUG] IMAP SSL connection established")
-
-        login_result = mail.login(self.email_account, self.email_password)
-        print(f"[DEBUG] Login result: {login_result}")
-
-        # 163邮箱需要发送ID命令才能执行SELECT
+        
         try:
-            imaplib.Commands["ID"] = ("AUTH",)
-            args = (
-                "name",
-                self.email_account,
-                "contact",
-                self.email_account,
-                "version",
-                "1.0.0",
-                "vendor",
-                "news-summarizer",
-            )
-            cmd = '("' + '" "'.join(args) + '")'
-            typ, dat = mail._simple_command("ID", cmd)
-            print(f"[DEBUG] ID command result: typ={typ}, dat={dat}")
-        except Exception as e:
-            print(f"[DEBUG] ID command failed (optional): {e}")
+            mail.login(self.email_account, self.email_password)
+        except imaplib.IMAP4.error as e:
+            self.logger.error(f"IMAP login failed: {e}")
+            raise
+
+        imaplib.Commands["ID"] = ("AUTH",)
+        args = (
+            "name",
+            self.email_account,
+            "contact",
+            self.email_account,
+            "version",
+            "1.0.0",
+            "vendor",
+            "news-summarizer",
+        )
+        cmd = '("' + '" "'.join(args) + '")'
+        try:
+            mail._simple_command("ID", cmd)
+        except imaplib.IMAP4.error as e:
+            self.logger.error(f"IMAP ID command failed: {e}")
+            raise
 
         return mail
 
@@ -129,14 +126,12 @@ class EmailCollector(Collector):
             # 获取邮件总数
             status, data = mail.status(self.mailbox, "(MESSAGES)")
             if status != "OK":
-                print(f"[DEBUG] Failed to get message count: {status}")
                 return []
 
             import re
 
             match = re.search(r"MESSAGES (\d+)", data[0].decode())
             total = int(match.group(1)) if match else 0
-            print(f"[DEBUG] Total messages: {total}")
 
             if total == 0:
                 return []
@@ -153,20 +148,16 @@ class EmailCollector(Collector):
                             if isinstance(flags[0][0], bytes)
                             else str(flags[0][0])
                         )
-                        print(f"[DEBUG] Msg {msg_num} flags: {flags_str}")
                         if "\\Seen" not in flags_str and "Seen" not in flags_str:
                             unread_ids.append(str(msg_num).encode())
                             if len(unread_ids) >= 10:
                                 break
                 except Exception as e:
-                    print(f"[DEBUG] Error fetching msg {msg_num}: {e}")
                     continue
 
-            print(f"[DEBUG] Found {len(unread_ids)} unread messages")
             return unread_ids
 
         except Exception as e:
-            print(f"[DEBUG] Error: {e}")
             return []
 
     def _build_search_criteria(self) -> str:
