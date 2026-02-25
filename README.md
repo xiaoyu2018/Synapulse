@@ -197,9 +197,10 @@ domains:
 ## TODO
 - [x] 修改collector日志打印机制
 - [x] 优化collector结构化处理功能（提取url）
+- [x] 增强collector信息源时间范围检查
 - [x] 修改tech.md提示词，优化生成内容（分类总结、优化信息展示模式）
 
-
+## ROADMAP
 
 ## License
 
