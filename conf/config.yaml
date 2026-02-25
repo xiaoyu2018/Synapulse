@@ -22,7 +22,7 @@ domains:
       provider: "ZHIPUAI"
       api_base: "https://open.bigmodel.cn/api/paas/v4/"
       api_key: "${LLM1_API_KEY}"
-      model: "glm-4.7-flash"
+      model: "glm-4.7"
       prompt_file: "prompts/tech.md"
     sender:
       type: email
