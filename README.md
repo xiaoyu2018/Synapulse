@@ -195,8 +195,9 @@ domains:
 - [PyYAML](https://github.com/yaml/pyyaml) - YAML 解析
 
 ## TODO
-- [ ] 优化collector结构化处理功能（提取url）
+- [ ] 优化collector url提取功能
 - [ ] 改进tech.md提示词，优化生成内容（分类总结、优化信息展示模式）
+- [ ] 修复ai_processor偶尔信息提取失败问题
 
 ## ROADMAP
 ### 2026-02-25
