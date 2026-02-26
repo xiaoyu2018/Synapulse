@@ -1,6 +1,11 @@
-# news-summarizer
+# Synapulse
 
-AI 新闻摘要生成器。从指定信息源收集行业新闻，AI 生成摘要并定时发送。
+**Synapulse** 连接您与行业前沿。
+
+- 收集：从指定的信息源（邮箱简报、X账号、Reddit等）自动抓取原始信息
+- 分析：AI 智能筛选、去重、提炼核心观点，生成结构化摘要
+- 发送：按预先设定的时间（每日/每周）和渠道（邮件/飞书等）准时送达
+
 
 ## 功能特性
 
@@ -185,14 +190,6 @@ domains:
 1. 在 `src/senders/` 创建新文件，继承 `Sender` 基类
 2. 实现 `send()` 方法
 3. 在 `main.py` 的 `_create_sender()` 中注册
-
-## 技术栈
-
-- Python 3.10+
-- [uv](https://github.com/astral-sh/uv) - 依赖管理
-- [openai](https://github.com/openai/openai-python) - AI API 客户端
-- [html2text](https://github.com/aaronsw/html2text) - HTML 转文本
-- [PyYAML](https://github.com/yaml/pyyaml) - YAML 解析
 
 ## TODO
 - [ ] 优化collector url提取功能
