@@ -18,7 +18,7 @@
 - **Configuration-driven**: YAML config + Markdown prompts, separated from code
 - **Environment Variable Injection**: Sensitive info uses `${ENV_VAR_NAME}` placeholders for security
 
-## Project Structure
+## Project Structure·
 
 ```
 Synapulse/
