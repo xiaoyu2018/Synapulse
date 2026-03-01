@@ -127,7 +127,7 @@ class EmailCollector(Collector):
         since_date = (datetime.now() - timedelta(days=self.time_range_days)).strftime(
             "%d-%b-%Y"
         )
-        return f'(UNSEEN SINCE "{since_date}")'
+        return f'(SINCE "{since_date}")'
 
     def _process_email(
         self, mail: imaplib.IMAP4_SSL, msg_id: bytes
@@ -219,19 +219,35 @@ class EmailCollector(Collector):
         cleaner = HTMLCleaner()
 
         if msg.is_multipart():
+            # First pass: only look for HTML
+            for part in msg.walk():
+                content_type = part.get_content_type()
+                if content_type == "text/html":
+                    payload = part.get_payload(decode=True)
+                    if payload:
+                        charset = part.get_content_charset() or "utf-8"
+                        try:
+                            content = cleaner.clean(payload.decode(charset, errors="ignore"))
+                            if content.strip():
+                                return content
+                        except Exception:
+                            pass
+
+            # Second pass: fallback to plain text if no HTML found
             for part in msg.walk():
                 content_type = part.get_content_type()
                 if content_type == "text/plain":
                     payload = part.get_payload(decode=True)
                     if payload:
                         charset = part.get_content_charset() or "utf-8"
-                        return cleaner.clean(payload.decode(charset, errors="ignore"))
-                elif content_type == "text/html":
-                    payload = part.get_payload(decode=True)
-                    if payload:
-                        charset = part.get_content_charset() or "utf-8"
-                        return cleaner.clean(payload.decode(charset, errors="ignore"))
+                        try:
+                            content = cleaner.clean_simple(payload.decode(charset, errors="ignore"))
+                            if content.strip():
+                                return content
+                        except Exception:
+                            pass
         else:
+            # Single-part email
             payload = msg.get_payload(decode=True)
             if payload:
                 charset = msg.get_content_charset() or "utf-8"

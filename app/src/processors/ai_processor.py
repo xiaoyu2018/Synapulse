@@ -132,7 +132,7 @@ class AIProcessor(Processor):
                 f"--- 新闻 {i} ---\n"
                 f"标题: {item.title}\n"
                 f"{source_info}\n"
-                f"内容: {item.content[:1000]}"
+                f"内容: {item.content}"
             )
 
         return "\n\n".join(combined)
