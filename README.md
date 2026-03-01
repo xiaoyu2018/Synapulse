@@ -206,9 +206,9 @@ If you find this project helpful, please scan to sponsor!
 
 ## TODO
 
-- [ ] Optimize SourceItem structure (urls), unify parsing methods (to_str, to_dict...)
+- [ ] Optimize SourceItem structure (remove urls part), unify parsing methods (to_str, to_dict...)
 - [ ] md2html in email_sender
-- [ ] Optimize html_cleaner, to fix occasional info extraction failure in ai_processor
+- [ ] Optimize html_cleaner and _extract_content in email_collector, to remove get better structured content
 - [x] Improve tech.md prompt, optimize generated content (categorized summary, better info display)
 - [x] Optimize logging pattern
 
