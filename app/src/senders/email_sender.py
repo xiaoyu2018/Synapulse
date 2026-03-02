@@ -24,7 +24,10 @@ class EmailSender(Sender):
         self.smtp_port = config.get("smtp_port", 465)
         self.sender_email = config.get("sender_email", "")
         self.sender_password = config.get("sender_password", "")
-        self.receiver_email = config.get("receiver_email", "")
+        raw_receiver_email = config.get("receiver_email", "")
+        self.receiver_emails = [
+            email.strip() for email in raw_receiver_email.split(",")
+        ] if raw_receiver_email else []
         self.use_tls = config.get("use_tls", False)
 
     def send(self, content: str, subject: str) -> bool:
@@ -37,13 +40,13 @@ class EmailSender(Sender):
         Returns:
             True if send was successful
         """
-        self.logger.info(f"Sending email to {self.receiver_email}")
+        self.logger.info(f"Sending email to {self.receiver_emails}")
 
         try:
             message = MIMEMultipart("alternative")
             message["Subject"] = subject
             message["From"] = self.sender_email
-            message["To"] = self.receiver_email
+            message["To"] = ", ".join(self.receiver_emails)
 
             text_part = MIMEText(content, "plain", "utf-8")
             html_part = MIMEText(self._convert_to_html(content), "html", "utf-8")
@@ -55,7 +58,7 @@ class EmailSender(Sender):
                 with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port) as server:
                     server.login(self.sender_email, self.sender_password)
                     server.sendmail(
-                        self.sender_email, self.receiver_email, message.as_string()
+                        self.sender_email, self.receiver_emails, message.as_string()
                     )
             else:
                 with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
@@ -63,7 +66,7 @@ class EmailSender(Sender):
                         server.starttls()
                     server.login(self.sender_email, self.sender_password)
                     server.sendmail(
-                        self.sender_email, self.receiver_email, message.as_string()
+                        self.sender_email, self.receiver_emails, message.as_string()
                     )
 
             self.logger.info("Email sent successfully")
