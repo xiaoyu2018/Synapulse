@@ -25,6 +25,10 @@ class AIProcessor(Processor):
         self.api_key = config.get("api_key", "")
         self.model = config.get("model", "gpt-4")
         self.prompt_file = config.get("prompt_file", "")
+        # AI model parameters
+        self.enable_thinking = config.get("enable_thinking", True)  # Enable thinking mode for GLM-4.7
+        self.max_tokens = config.get("max_tokens", 65536)  # Max output tokens
+        self.temperature = config.get("temperature", 0.7)  # Control randomness (0-1)
         self._client: OpenAI | None = None
         self._prompt_template: str | None = None
 
@@ -57,18 +61,27 @@ class AIProcessor(Processor):
         self.logger.debug(f"Prompt length: {len(prompt)} characters")
 
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[
+            # Build API parameters
+            api_params = {
+                "model": self.model,
+                "messages": [
                     {
                         "role": "system",
                         "content": "You are a professional news editor.",
                     },
                     {"role": "user", "content": prompt},
                 ],
-                temperature=0.7,
-                max_tokens=4000,
-            )
+                "temperature": self.temperature,
+                "max_tokens": self.max_tokens,
+            }
+
+            # GLM-4.7 thinking mode requires extra_body parameter
+            if self.enable_thinking and self.provider.upper() == "ZHIPUAI":
+                api_params["extra_body"] = {
+                    "thinking": {"type": "enabled"}
+                }
+
+            response = self.client.chat.completions.create(**api_params)
 
             summary = response.choices[0].message.content
             self.logger.info("AI processing completed successfully")
@@ -125,10 +138,10 @@ class AIProcessor(Processor):
         combined = []
         for i, item in enumerate(items, 1):
             combined.append(
-                f"--- 新闻 {i} ---\n{item.to_str()}"
+                f"--- 来源 {i} ---\n{item.to_str()}"
             )
 
-        return "\n\n".join(combined)
+        return "\n".join(combined)
 
     @staticmethod
     def _get_default_prompt() -> str:

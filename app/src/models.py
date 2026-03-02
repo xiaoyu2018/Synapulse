@@ -12,7 +12,7 @@ class SourceItem:
     Attributes:
         source_type: Source type (e.g., "email", "reddit", "rss")
         source_name: Human-readable source identifier (e.g., "Techmeme", "@openai", "r/technology")
-        title: Content title
+        source_title: Content title
         content: Cleaned text content (includes URLs with context)
         published_at: Publication timestamp (optional)
         metadata: Collector-specific extended data dictionary (optional)
@@ -20,7 +20,7 @@ class SourceItem:
 
     source_type: str
     source_name: str
-    title: str
+    source_title: str
     content: str
     published_at: datetime | None = None
     metadata: dict[str, Any] | None = None
@@ -30,7 +30,7 @@ class SourceItem:
         return {
             "source_type": self.source_type,
             "source_name": self.source_name,
-            "title": self.title,
+            "source_title": self.source_title,
             "content": self.content,
             "published_at": self.published_at.isoformat() if self.published_at else None,
             "metadata": self.metadata or {},
@@ -48,7 +48,7 @@ class SourceItem:
         lines = [
             f"source_type: {self.source_type}",
             f"source_name: {self.source_name}",
-            f"title: {self.title}",
+            f"source_title: {self.source_title}",
             f"content: {self.content}",
         ]
         if self.published_at:
