@@ -53,7 +53,6 @@ class EmailSender(Sender):
 
             message.attach(text_part)
             message.attach(html_part)
-
             if self.smtp_port == 465:
                 with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port) as server:
                     server.login(self.sender_email, self.sender_password)

@@ -57,7 +57,6 @@ class AIProcessor(Processor):
         prompt_template = self._load_prompt()
         combined_content = self._combine_items(items)
         prompt = prompt_template.replace("{combined_content}", combined_content)
-        print(prompt)
         self.logger.debug(f"Prompt length: {len(prompt)} characters")
 
         try:
@@ -84,6 +83,7 @@ class AIProcessor(Processor):
             response = self.client.chat.completions.create(**api_params)
 
             summary = response.choices[0].message.content
+            summary = self._strip_code_block(summary)
             self.logger.info("AI processing completed successfully")
             return summary or "生成摘要失败。"
 
@@ -161,3 +161,31 @@ class AIProcessor(Processor):
 {combined_content}
 
 今日摘要："""
+
+    @staticmethod
+    def _strip_code_block(content: str) -> str:
+        """Remove markdown code block wrapper from AI output.
+
+        AI models often wrap output in ```markdown ... ``` when the prompt
+        contains code blocks. This strips that wrapper.
+
+        Args:
+            content: AI-generated content that may be wrapped in code block
+
+        Returns:
+            Content with code block wrapper removed
+        """
+        content = content.strip()
+
+        # Check if content starts with ```markdown or ``` and ends with ```
+        if content.startswith("```markdown\n"):
+            content = content[len("```markdown\n") :]
+        elif content.startswith("```\n"):
+            content = content[len("```\n") :]
+
+        if content.endswith("\n```"):
+            content = content[: -len("\n```")]
+        elif content.endswith("```"):
+            content = content[: -len("```")]
+
+        return content.strip()
