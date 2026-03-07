@@ -56,19 +56,21 @@ class AIProcessor(Processor):
 
         prompt_template = self._load_prompt()
         combined_content = self._combine_items(items)
-        prompt = prompt_template.replace("{combined_content}", combined_content)
-        self.logger.debug(f"Prompt length: {len(prompt)} characters")
+
+        # Use prompt as system_message, combined content as user_message
+        system_prompt = prompt_template
+        user_prompt = combined_content
+
+        self.logger.debug(f"System prompt length: {len(system_prompt)} characters")
+        self.logger.debug(f"User prompt length: {len(user_prompt)} characters")
 
         try:
-            # Build API parameters
+            # Build API parameters with separated messages
             api_params = {
                 "model": self.model,
                 "messages": [
-                    {
-                        "role": "system",
-                        "content": "You are a professional news editor.",
-                    },
-                    {"role": "user", "content": prompt},
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt},
                 ],
                 "temperature": self.temperature,
                 "max_tokens": self.max_tokens,
