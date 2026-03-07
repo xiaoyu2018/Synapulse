@@ -54,9 +54,9 @@
 ### 🤖 人工智能
 
 #### 1. {英文标题}
-**中文标题**：{中文翻译标题}
+{中文翻译标题}
 
-> {核心摘要，不超过50字}
+核心摘要：{核心摘要，不超过50字}
 
 📄 来源：{来源类别} - {来源名称} | [原文链接]({原文URL})
 
@@ -70,9 +70,9 @@
 ### 📱 数码产品
 
 #### 1. {英文标题}
-**中文标题**：{中文翻译标题}
+{中文翻译标题}
 
-> {核心摘要，不超过50字}
+核心摘要：{核心摘要，不超过50字}
 
 📄 来源：{来源类别} - {来源名称} | [原文链接]({原文URL})
 
@@ -88,7 +88,9 @@
 ```markdown
 ## 📰 新闻速览
 
-OpenAI 发布 GPT-5.3 Instant 改善对话体验；Google 推出低成本 Gemini 3.1 Flash-Lite；苹果发布 M5 系列 MacBook Pro 和入门款 MacBook Neo；iPhone 17e 正式上架。
+OpenAI 发布 GPT-5.3 Instant 改善对话体验；
+Google 推出低成本 Gemini 3.1 Flash-Lite；
+苹果发布 M5 系列 MacBook Pro 和入门款 MacBook Neo；iPhone 17e 正式上架。
 
 ---
 
@@ -97,18 +99,18 @@ OpenAI 发布 GPT-5.3 Instant 改善对话体验；Google 推出低成本 Gemini
 ### 🤖 人工智能
 
 #### 1. OpenAI Releases GPT-5.3 Instant
-**中文标题**：OpenAI 发布 GPT-5.3 Instant
+*OpenAI 发布 GPT-5.3 Instant*
 
-> 改善对话流畅度与答案相关性，减少不必要的拒绝和说教式免责声明。
+核心摘要：改善对话流畅度与答案相关性，减少不必要的拒绝和说教式免责声明。
 
 📄 来源：邮件 - TLDR | [原文链接](https://tldr.news/example)
 
 ---
 
 #### 2. Google Launches Gemini 3.1 Flash-Lite
-**中文标题**：Google 推出 Gemini 3.1 Flash-Lite
+*Google 推出 Gemini 3.1 Flash-Lite*
 
-> 低成本高速度模型，输入 $0.25/百万 token，输出 $1.50/百万 token。
+核心摘要：低成本高速度模型，输入 $0.25/百万 token，输出 $1.50/百万 token。
 
 📄 来源：邮件 - TLDR | [原文链接](https://tldr.news/example2)
 
@@ -117,18 +119,18 @@ OpenAI 发布 GPT-5.3 Instant 改善对话体验；Google 推出低成本 Gemini
 ### 📱 数码产品
 
 #### 1. Apple Announces New MacBook Pro with M5 Chips
-**中文标题**：苹果发布搭载 M5 芯片的新款 MacBook Pro
+*苹果发布搭载 M5 芯片的新款 MacBook Pro*
 
-> M5 Pro 和 M5 Max 采用 Fusion 架构，提供突破性的专业性能和端侧 AI 能力。
+核心摘要：M5 Pro 和 M5 Max 采用 Fusion 架构，提供突破性的专业性能和端侧 AI 能力。
 
 📄 来源：邮件 - Apple Insider | [原文链接](https://appleinsider.com/example)
 
 ---
 
 #### 2. MacBook Neo Launched at $599
-**中文标题**：MacBook Neo 正式发布，起售价 599 美元
+*MacBook Neo 正式发布，起售价 599 美元*
 
-> 入门级笔记本电脑，搭载 A18 Pro 芯片，四种颜色可选。
+核心摘要：入门级笔记本电脑，搭载 A18 Pro 芯片，四种颜色可选。
 
 📄 来源：邮件 - TLDR | [原文链接](https://tldr.news/example3)
 ```
