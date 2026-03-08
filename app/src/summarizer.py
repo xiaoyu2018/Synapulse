@@ -111,7 +111,7 @@ class NewsSummarizer:
                 items = collector.collect()
                 all_items.extend(items)
                 self.logger.info(
-                    f"Collector {collector.name} collected {len(items)} items"
+                    f"Collector {collector.name} collected {len(items)} items",
                 )
             except imaplib.IMAP4.error as e:
                 self.logger.exception(f"Collector {collector.name} failed: {e}")
@@ -231,4 +231,4 @@ class NewsSummarizer:
 
 
 if __name__ == "__main__":
-    print(None or "生成摘要失败。")
+    ...

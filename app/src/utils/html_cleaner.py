@@ -98,7 +98,7 @@ class HTMLCleaner:
         for pattern in self.NEWSLETTER_FILTER_PATTERNS:
             # Match whole lines containing the pattern
             text = re.sub(
-                rf"^.*{pattern}.*$", "", text, flags=re.IGNORECASE | re.MULTILINE
+                rf"^.*{pattern}.*$", "", text, flags=re.IGNORECASE | re.MULTILINE,
             )
 
         return text

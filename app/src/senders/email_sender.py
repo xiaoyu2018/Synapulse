@@ -59,7 +59,7 @@ class EmailSender(Sender):
                 with smtplib.SMTP_SSL(self.smtp_server, self.smtp_port) as server:
                     server.login(self.sender_email, self.sender_password)
                     server.sendmail(
-                        self.sender_email, self.receiver_emails, message.as_string()
+                        self.sender_email, self.receiver_emails, message.as_string(),
                     )
             else:
                 with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
@@ -67,7 +67,7 @@ class EmailSender(Sender):
                         server.starttls()
                     server.login(self.sender_email, self.sender_password)
                     server.sendmail(
-                        self.sender_email, self.receiver_emails, message.as_string()
+                        self.sender_email, self.receiver_emails, message.as_string(),
                     )
 
             self.logger.info("Email sent successfully")

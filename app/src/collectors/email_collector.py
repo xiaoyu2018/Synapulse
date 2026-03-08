@@ -67,7 +67,7 @@ class EmailCollector(Collector):
                         items.append(item)
                         if self.mark_as_seen:
                             mail.store(msg_id, "+FLAGS", "\\Seen")
-                except (imaplib.IMAP4.error, email.message.MessageError) as e:
+                except (imaplib.IMAP4.error, email.message.MessageError) as e:  # noqa: PERF203
                     self.logger.exception(f"Error processing email {msg_id}: {e}")
 
         except imaplib.IMAP4.error as e:
@@ -125,12 +125,12 @@ class EmailCollector(Collector):
             Search criteria string
         """
         since_date = (datetime.now() - timedelta(days=self.time_range_days)).strftime(
-            "%d-%b-%Y"
+            "%d-%b-%Y",
         )
         return f'(UNSEEN SINCE "{since_date}")'
 
     def _process_email(
-        self, mail: imaplib.IMAP4_SSL, msg_id: bytes
+        self, mail: imaplib.IMAP4_SSL, msg_id: bytes,
     ) -> SourceItem | None:
         """Process a single email message.
 
@@ -223,7 +223,7 @@ class EmailCollector(Collector):
                         charset = part.get_content_charset() or "utf-8"
                         try:
                             content = cleaner.clean(
-                                payload.decode(charset, errors="ignore")
+                                payload.decode(charset, errors="ignore"),
                             )
                             if content.strip():
                                 return content
@@ -239,7 +239,7 @@ class EmailCollector(Collector):
                         charset = part.get_content_charset() or "utf-8"
                         try:
                             content = cleaner.clean_simple(
-                                payload.decode(charset, errors="ignore")
+                                payload.decode(charset, errors="ignore"),
                             )
                             if content.strip():
                                 return content

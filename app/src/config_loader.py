@@ -32,12 +32,12 @@ class ConfigLoader:
             raise FileNotFoundError(f"Configuration file not found: {self.config_path}")
 
         try:
-            with open(self.config_path, "r", encoding="utf-8") as f:
+            with open(self.config_path, encoding="utf-8") as f:
                 raw_config = yaml.safe_load(f)
         except yaml.YAMLError as e:
             raise ValueError(f"Invalid YAML format in config file: {e}") from e
         except OSError as e:
-            raise IOError(f"Failed to read config file: {e}") from e
+            raise OSError(f"Failed to read config file: {e}") from e
 
         self._config = self._resolve_env_vars(raw_config)
         return self._config

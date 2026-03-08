@@ -3,10 +3,9 @@
 from pathlib import Path
 from typing import Any
 
-from openai import APIConnectionError, APIError, OpenAI, RateLimitError
-
 from app.src.models import SourceItem
 from app.src.processors.base import Processor
+from openai import APIConnectionError, APIError, OpenAI, RateLimitError
 
 
 class AIProcessor(Processor):
@@ -27,7 +26,7 @@ class AIProcessor(Processor):
         self.prompt_file = config.get("prompt_file", "")
         # AI model parameters
         self.enable_thinking = config.get(
-            "enable_thinking", True
+            "enable_thinking", True,
         )  # Enable thinking mode for GLM-4.7
         self.max_tokens = config.get("max_tokens", 131072)  # Max output tokens
         self.temperature = config.get("temperature", 0.7)  # Control randomness (0-1)
@@ -122,7 +121,7 @@ class AIProcessor(Processor):
             return self._prompt_template
         except OSError as e:
             self.logger.warning(
-                f"Failed to read prompt file: {prompt_path}, using default: {e}"
+                f"Failed to read prompt file: {prompt_path}, using default: {e}",
             )
             self._prompt_template = self._get_default_prompt()
             return self._prompt_template
