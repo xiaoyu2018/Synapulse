@@ -3,7 +3,7 @@
 
 # Synapulse
 
-**Synapulse** connects you with industry frontiers.
+**Synapulse** is an intelligent information assistant that connects you with cutting-edge insights across various industries.
 
 - **Collect**: Automatically gather raw information from designated sources (email newsletters, X accounts, Reddit, etc.)
 - **Analyze**: AI-powered filtering, deduplication, and core insight extraction to generate structured summaries
