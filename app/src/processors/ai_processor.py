@@ -26,10 +26,11 @@ class AIProcessor(Processor):
         self.prompt_file = config.get("prompt_file", "")
         # AI model parameters
         self.enable_thinking = config.get(
-            "enable_thinking", True,
+            "enable_thinking",
+            True,
         )  # Enable thinking mode for GLM-4.7
         self.max_tokens = config.get("max_tokens", 131072)  # Max output tokens
-        self.temperature = config.get("temperature", 0.7)  # Control randomness (0-1)
+        self.temperature = config.get("temperature", 0)  # Control randomness (0-1)
         self._client: OpenAI | None = None
         self._prompt_template: str | None = None
 

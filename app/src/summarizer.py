@@ -1,8 +1,6 @@
-from datetime import datetime
-
 import imaplib
 import smtplib
-from openai import APIConnectionError, APIError, RateLimitError
+from datetime import datetime
 
 from app.src.collectors.email_collector import EmailCollector
 from app.src.config_loader import ConfigLoader
@@ -10,6 +8,7 @@ from app.src.models import SourceItem
 from app.src.processors.ai_processor import AIProcessor
 from app.src.senders.email_sender import EmailSender
 from app.src.utils.logger import setup_logger
+from openai import APIConnectionError, APIError, RateLimitError
 
 
 class NewsSummarizer:

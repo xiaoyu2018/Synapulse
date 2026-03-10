@@ -1,12 +1,11 @@
 """Email collector using IMAP."""
 
 import email
+import imaplib
 from datetime import datetime, timedelta
 from email.header import decode_header
 from email.message import Message
 from typing import Any
-
-import imaplib
 
 from app.src.collectors.base import Collector
 from app.src.models import SourceItem
@@ -130,7 +129,9 @@ class EmailCollector(Collector):
         return f'(UNSEEN SINCE "{since_date}")'
 
     def _process_email(
-        self, mail: imaplib.IMAP4_SSL, msg_id: bytes,
+        self,
+        mail: imaplib.IMAP4_SSL,
+        msg_id: bytes,
     ) -> SourceItem | None:
         """Process a single email message.
 
